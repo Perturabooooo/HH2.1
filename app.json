@@ -1,15 +1,19 @@
 {
   "expo": {
-    "name": "untitled",
-    "slug": "untitled",
+    "name": "hh",
+    "slug": "hh",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "untitled",
+    "scheme": "hh",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "expo": {
+      "ios": { "bundleIdentifier": "com.fistmeoniichan.hh" }
+    },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fistmeoniichan.hh"
     },
     "android": {
       "adaptiveIcon": {

@@ -1,11 +1,18 @@
-import {ReactNode} from "react";
-import {View} from "react-native";
-
+import { ReactNode } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet } from "react-native-unistyles";
 
 export default function PageLayout({ children }: { children: ReactNode }) {
-    return (
-        <View className="bg-background justify-center flex-1 p-10">
-            {children}
-        </View>
-    );
+  return (
+    <SafeAreaView style={styles.safeArea} edges={["top", "bottom"]}>
+      {children}
+    </SafeAreaView>
+  );
 }
+
+const styles = StyleSheet.create((theme) => ({
+  safeArea: {
+    flex: 1,
+    padding: 16,
+  },
+}));
