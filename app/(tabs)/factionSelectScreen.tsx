@@ -1,27 +1,27 @@
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import PageLayout from "@/app/components/pagelayout/pagelayout";
+import PageLayout from "@/app/components/pagelayout/PageLayout";
+import Text from "@/app/components/text/Text";
+import { useNavigation } from "@react-navigation/native";
+import React from "react";
 //import factions from '../data/factions';
 
 export default function FactionSelectScreen() {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    return (
-        <PageLayout>
-            <Text className="text-white text-2xl font-bold mb-6">Who are you?</Text>
+  return (
+    <PageLayout>
+      <Text>Who are you?</Text>
 
-            {/*<ScrollView>*/}
-            {/*    {factions.map((faction) => (*/}
-            {/*        <TouchableOpacity*/}
-            {/*            key={faction.id}*/}
-            {/*            className={`bg-${faction.color}-800 px-4 py-3 mb-3 rounded-lg`}*/}
-            {/*            onPress={() => navigation.navigate('LoyaltySelect', { faction })}*/}
-            {/*        >*/}
-            {/*            <Text className="text-white text-lg">{faction.name}</Text>*/}
-            {/*        </TouchableOpacity>*/}
-            {/*    ))}*/}
-            {/*</ScrollView>*/}
-        </PageLayout>
-    );
+      {/*<ScrollView>*/}
+      {/*    {factions.map((faction) => (*/}
+      {/*        <TouchableOpacity*/}
+      {/*            key={faction.id}*/}
+      {/*            className={`bg-${faction.color}-800 px-4 py-3 mb-3 rounded-lg`}*/}
+      {/*            onPress={() => navigation.navigate('LoyaltySelect', { faction })}*/}
+      {/*        >*/}
+      {/*            <Text className="text-white text-lg">{faction.name}</Text>*/}
+      {/*        </TouchableOpacity>*/}
+      {/*    ))}*/}
+      {/*</ScrollView>*/}
+    </PageLayout>
+  );
 }
