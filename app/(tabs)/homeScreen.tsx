@@ -1,4 +1,4 @@
-import PageLayout from "@/app/components/pagelayout/PageLayout";
+import PageLayout from "@/app/components/pagelayout/pagelayout";
 import Text from "@/app/components/text/Text";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
