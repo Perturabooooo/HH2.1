@@ -2,7 +2,7 @@ import { useLocalSearchParams } from "expo-router";
 import { View } from "react-native";
 import Text from "../components/text/Text";
 
-export default function loyaltySelectScreen() {
+export default function LegionSelectScreen() {
   const { factionId, factionName } = useLocalSearchParams();
 
   return (

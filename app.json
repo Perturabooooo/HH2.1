@@ -9,7 +9,9 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "expo": {
-      "ios": { "bundleIdentifier": "com.fistmeoniichan.hh" }
+      "ios": {
+        "bundleIdentifier": "com.fistmeoniichan.hh"
+      }
     },
     "ios": {
       "supportsTablet": true,
@@ -20,7 +22,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.fistmeoniichan.hh"
     },
     "web": {
       "bundler": "metro",

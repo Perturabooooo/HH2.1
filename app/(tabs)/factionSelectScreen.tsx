@@ -1,27 +1,78 @@
-import PageLayout from "@/app/components/pagelayout/PageLayout";
-import Text from "@/app/components/text/Text";
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
-//import factions from '../data/factions';
+import { router, useRouter } from "expo-router";
+import { Button, FlatList, View } from "react-native";
+import PageLayout from "../components/pagelayout/PageLayout";
+import { factionData, FactionData } from "../data";
+
+const handlePress = (faction: FactionData) => {
+  let pathname:
+    | "/(tabs)/legionSelectScreen"
+    | "/(tabs)/loyaltySelectScreen"
+    | "/(tabs)/constructionModifierScreen"
+    | "/(tabs)/homeScreen";
+
+  switch (faction.id) {
+    case "1":
+    case "2":
+      pathname = "/(tabs)/legionSelectScreen";
+      break;
+    case "3":
+    case "4":
+    case "5":
+    case "7":
+    case "8":
+      pathname = "/(tabs)/loyaltySelectScreen";
+      break;
+    case "6":
+    case "10":
+      pathname = "/(tabs)/constructionModifierScreen";
+      break;
+    case "9":
+    default:
+      pathname = "/(tabs)/homeScreen";
+      break;
+  }
+
+  router.push({
+    pathname,
+    params: {
+      factionId: faction.id,
+      factionName: faction.displayName,
+    },
+  });
+};
+
+type Props = {
+  faction: FactionData;
+  onPress: () => void;
+};
+
+const FactionItem = ({ faction, onPress }: Props) => {
+  return (
+    <View>
+      <Button title={faction.displayName} onPress={onPress} />
+    </View>
+  );
+};
 
 export default function FactionSelectScreen() {
-  const navigation = useNavigation();
+  const router = useRouter();
 
   return (
     <PageLayout>
-      <Text>Who are you?</Text>
-
-      {/*<ScrollView>*/}
-      {/*    {factions.map((faction) => (*/}
-      {/*        <TouchableOpacity*/}
-      {/*            key={faction.id}*/}
-      {/*            className={`bg-${faction.color}-800 px-4 py-3 mb-3 rounded-lg`}*/}
-      {/*            onPress={() => navigation.navigate('LoyaltySelect', { faction })}*/}
-      {/*        >*/}
-      {/*            <Text className="text-white text-lg">{faction.name}</Text>*/}
-      {/*        </TouchableOpacity>*/}
-      {/*    ))}*/}
-      {/*</ScrollView>*/}
+      <View>
+        <FlatList
+          data={factionData}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <FactionItem
+              faction={item}
+              onPress={() => {
+                handlePress(item);
+              }}
+            />
+          )}
+        />
+      </View>
     </PageLayout>
   );
 }
