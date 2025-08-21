@@ -1,14 +1,14 @@
 import { router, useRouter } from "expo-router";
 import { Button, FlatList, View } from "react-native";
 import PageLayout from "../components/pagelayout/PageLayout";
-import { factionData, FactionData } from "../data";
+import { Data, factionData } from "../data";
 
-const handlePress = (faction: FactionData) => {
+const handlePress = (faction: Data) => {
   let pathname:
     | "/(tabs)/legionSelectScreen"
     | "/(tabs)/loyaltySelectScreen"
     | "/(tabs)/constructionModifierScreen"
-    | "/(tabs)/homeScreen";
+    | "/(tabs)/rosterScreen";
 
   switch (faction.id) {
     case "1":
@@ -28,7 +28,7 @@ const handlePress = (faction: FactionData) => {
       break;
     case "9":
     default:
-      pathname = "/(tabs)/homeScreen";
+      pathname = "/(tabs)/rosterScreen";
       break;
   }
 
@@ -36,13 +36,12 @@ const handlePress = (faction: FactionData) => {
     pathname,
     params: {
       factionId: faction.id,
-      factionName: faction.displayName,
     },
   });
 };
 
 type Props = {
-  faction: FactionData;
+  faction: Data;
   onPress: () => void;
 };
 

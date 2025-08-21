@@ -1,14 +1,51 @@
-import { useLocalSearchParams } from "expo-router";
-import { View } from "react-native";
-import Text from "../components/text/Text";
+import { router, useLocalSearchParams } from "expo-router";
+import { Button, FlatList, View } from "react-native";
+import PageLayout from "../components/pagelayout/PageLayout";
+import { Data, loyaltyData } from "../data";
 
-export default function loyaltySelectScreen() {
-  const { factionId, factionName } = useLocalSearchParams();
+const handlePress = (loyalty: Data, factionId?: any, legionId?: any) => {
+  router.push({
+    pathname: "/(tabs)/constructionModifierScreen",
+    params: {
+      loyaltyId: loyalty.id,
+      factionId,
+      legionId,
+    },
+  });
+};
 
+type Props = {
+  loyalty: Data;
+  onPress: () => void;
+};
+
+const LoyaltyItem = ({ loyalty, onPress }: Props) => {
   return (
     <View>
-      <Text>Faction ID: {factionId}</Text>
-      <Text>Faction Name: {factionName}</Text>
+      <Button title={loyalty.displayName} onPress={onPress} />
     </View>
+  );
+};
+
+export default function loyaltySelectScreen() {
+  const { factionId, legionId } = useLocalSearchParams();
+
+  return (
+    <PageLayout>
+      <View>
+        <FlatList
+          data={loyaltyData}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <LoyaltyItem
+              loyalty={item}
+              onPress={() => {
+                handlePress(item, factionId, legionId);
+              }}
+            />
+          )}
+        />
+      </View>
+    </PageLayout>
   );
 }

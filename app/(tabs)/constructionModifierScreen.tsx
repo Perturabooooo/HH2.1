@@ -1,16 +1,57 @@
-// for things like sisters chamber's,
-// remember to add none option for space marine rite of war,
 import { useLocalSearchParams } from "expo-router";
-import { View } from "react-native";
-import Text from "../components/text/Text";
+import { Button, FlatList, View } from "react-native";
+import PageLayout from "../components/pagelayout/PageLayout";
+import { CMSData, cmsData } from "../data";
 
-export default function constructionModifierScreen() {
-  const { factionId, factionName } = useLocalSearchParams();
+const handlePress = (cmsData: CMSData) => {
+  console.log("Pressed:", cmsData.name);
+};
 
+type Props = {
+  cmsData: CMSData;
+  onPress: () => void;
+};
+
+const CMSItem = ({ cmsData, onPress }: Props) => {
   return (
     <View>
-      <Text>Faction ID: {factionId}</Text>
-      <Text>Faction Name: {factionName}</Text>
+      <Button title={cmsData.name} onPress={onPress} />
     </View>
+  );
+};
+
+export default function ConstructionModifierScreen(item: CMSData) {
+  const { factionId, legionId, loyaltyId } = useLocalSearchParams<{
+    factionId: string;
+    legionId?: string;
+    loyaltyId?: string;
+  }>();
+  console.log("Params:", { factionId, legionId, loyaltyId });
+
+  const filteredData = cmsData.filter((item) => {
+    const matchesFaction = !factionId || item.faction.includes(factionId);
+    const matchesLegion = !item.legion || item.legion === legionId;
+    const matchesLoyalty = !item.loyalty || item.loyalty === loyaltyId;
+
+    return matchesFaction && matchesLegion && matchesLoyalty;
+  });
+
+  return (
+    <PageLayout>
+      <View>
+        <FlatList
+          data={filteredData}
+          keyExtractor={(item) => item.name}
+          renderItem={({ item }) => (
+            <CMSItem
+              cmsData={item}
+              onPress={() => {
+                handlePress(item);
+              }}
+            />
+          )}
+        />
+      </View>
+    </PageLayout>
   );
 }
