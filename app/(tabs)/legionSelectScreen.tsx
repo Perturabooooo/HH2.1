@@ -2,7 +2,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Button, FlatList, View } from "react-native";
 import PageLayout from "../components/pagelayout/PageLayout";
-import { Data, legionData } from "../data";
+import { Data, globalState, legionScreen } from "../data/screenData";
 
 type Props = {
   legion: Data;
@@ -44,6 +44,7 @@ export default function legionSelectScreen() {
   };
 
   const handleSinglePress = (legion: Data) => {
+    globalState.legion = legion.id;
     if (legion.id !== "99") {
       router.push({
         pathname: "/(tabs)/loyaltySelectScreen",
@@ -65,6 +66,7 @@ export default function legionSelectScreen() {
 
   const handleConfirmPress = () => {
     const legionIds = selectedLegions.map((l) => l.id).join(",");
+    globalState.legion = legionIds;
     router.push({
       pathname: "/(tabs)/loyaltySelectScreen",
       params: {
@@ -78,7 +80,7 @@ export default function legionSelectScreen() {
     <PageLayout>
       <View>
         <FlatList
-          data={legionData}
+          data={legionScreen}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <LegionItem

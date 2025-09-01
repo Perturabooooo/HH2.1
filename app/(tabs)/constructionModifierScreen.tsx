@@ -1,10 +1,15 @@
-import { useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 import { Button, FlatList, View } from "react-native";
 import PageLayout from "../components/pagelayout/PageLayout";
-import { CMSData, cmsData } from "../data";
+import { CMSData, cmsData, globalState } from "../data/screenData";
 
 const handlePress = (cmsData: CMSData) => {
   console.log("Pressed:", cmsData.name);
+  globalState.cmsmod = cmsData.cmsmod;
+  router.push({
+    pathname: "/(tabs)/rosterScreen",
+    params: cmsData,
+  });
 };
 
 type Props = {
@@ -21,18 +26,12 @@ const CMSItem = ({ cmsData, onPress }: Props) => {
 };
 
 export default function ConstructionModifierScreen(item: CMSData) {
-  const { factionId, legionId, loyaltyId } = useLocalSearchParams<{
-    factionId: string;
-    legionId?: string;
-    loyaltyId?: string;
-  }>();
-  console.log("Params:", { factionId, legionId, loyaltyId });
-
   const filteredData = cmsData.filter((item) => {
-    const matchesFaction = !factionId || item.faction.includes(factionId);
-    const matchesLegion = !item.legion || item.legion === legionId;
-    const matchesLoyalty = !item.loyalty || item.loyalty === loyaltyId;
-
+    const matchesFaction =
+      !item.faction || item.faction.includes(globalState.faction);
+    const matchesLegion = !item.legion || item.legion === globalState.legion;
+    const matchesLoyalty =
+      !item.loyalty || item.loyalty === globalState.loyalty;
     return matchesFaction && matchesLegion && matchesLoyalty;
   });
 

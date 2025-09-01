@@ -1,9 +1,10 @@
 import { router, useRouter } from "expo-router";
 import { Button, FlatList, View } from "react-native";
 import PageLayout from "../components/pagelayout/PageLayout";
-import { Data, factionData } from "../data";
+import { Data, factionScreen, globalState } from "../data/screenData";
 
 const handlePress = (faction: Data) => {
+  globalState.faction = faction.id;
   let pathname:
     | "/(tabs)/legionSelectScreen"
     | "/(tabs)/loyaltySelectScreen"
@@ -31,13 +32,7 @@ const handlePress = (faction: Data) => {
       pathname = "/(tabs)/rosterScreen";
       break;
   }
-
-  router.push({
-    pathname,
-    params: {
-      factionId: faction.id,
-    },
-  });
+  router.push({ pathname });
 };
 
 type Props = {
@@ -60,7 +55,7 @@ export default function FactionSelectScreen() {
     <PageLayout>
       <View>
         <FlatList
-          data={factionData}
+          data={factionScreen}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <FactionItem
